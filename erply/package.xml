@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package>
+    <name>Erply</name>
+    <version>1.0</version>
+    <stability>beta</stability>
+    <license uri="http://erply.com/terms-of-service/">custom</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Beta release of Erply Inventory Management for Magento</summary>
+    <description>This release supports synchonization of product catalog and orders between Magento and Erply.&#xD;
+&#xD;
+Please not that this is a BETA release. License is all-restrictive until informed otherwise.</description>
+    <notes>First public yet BETA release of the new Erply Connector</notes>
+    <authors><author><name>Erply</name><user>Erply</user><email>apps@erply.com</email></author></authors>
+    <date>2013-02-26</date>
+    <time>12:37:23</time>
+    <contents><target name="mageetc"><dir name="modules"><file name="Eepohs_Erply.xml" hash="64413255cb60ca02c53a02ca8547d663"/></dir></target><target name="magecommunity"><dir name="Eepohs"><dir name="Erply"><dir name="Block"><file name="Import.php" hash="998b050bca862cfc02a60c9d2bc7fecc"/><file name="Products.php" hash="9f4a97cb0e15190db5beb7bed9444f7a"/><file name="SidebarBlock.php" hash="cc1b0f83a14846dd4961430b71bcf94a"/><dir name="System"><dir name="Backend"><dir name="Config"><file name="Attributes.php" hash="2cdcb1200b00ec602d99038172226c02"/></dir></dir></dir></dir><dir name="Helper"><file name="Data.php" hash="ad94df2b8662fb05c8865eedfe5a20a9"/></dir><dir name="Model"><file name="Address.php" hash="06c598e496b3597922b3442fa471206c"/><file name="Addresses.php" hash="834e1fbefacc724de726b48f3dbaa8c4"/><dir name="Category"><file name="Import.php" hash="e2ac6101db4101d3ad9ca9ecd8ec8f07"/></dir><file name="Cron.php" hash="7ac50d55ffa03520955bb8e1f5db4620"/><file name="Customer.php" hash="0bead011410ae536878d7475bbbaf0e3"/><file name="Erply.php" hash="7e42dcf818eb5c92b35391fdbfe1521c"/><file name="Image.php" hash="7015fa69bfe0e713e15b244e33cfc8cb"/><file name="Import.php" hash="feefcc1e43c8fc7d69995b911d90b62a"/><file name="Inventory.php" hash="251e1339f35923e3e2a7487c05217587"/><dir name="Mysql4"><dir name="Queue"><file name="Collection.php" hash="0a82090d19e05436c846b7eab2350ee8"/></dir><file name="Queue.php" hash="730c8c4d8b3c287fc6aca78dd30170d4"/></dir><file name="Observer.php" hash="4acbaae076a58322ad7eaf538912307f"/><file name="Order.php" hash="5a51403b794c81e160f7a1bf2449a098"/><file name="Payment.php" hash="d3d0eed6b08b7d0d3a2aa04db07c6360"/><file name="Price.php" hash="efe57e83693db62af8b1ac00fca2668b"/><dir name="Product"><file name="Import.php" hash="35dd7d2cfd53d8372d3dbb3aa8607608"/></dir><file name="Product.php" hash="e6eabf07238c70bcd44415757299b864"/><file name="Queue.php" hash="0154154a17108a1c2dcdbcf8175d521c"/><dir name="System"><dir name="Backend"><dir name="Config"><file name="AttributeSet.php" hash="1b052fca03e7b7250305ff1b67fc2451"/></dir></dir></dir></dir><dir name="controllers"><file name="ErplyController.php" hash="8cbe0348af9b0b9698c95ae91f7a5cfe"/></dir><dir name="etc"><file name="config.xml" hash="be3d0cf28f985113811c4744dc838006"/><file name="system.xml" hash="464fb0630e5d37115b1747cafe19cfd3"/></dir><dir name="sql"><dir name="eepohs_erply_setup"><file name="mysql4-install-0.1.0.php" hash="9ffb1f0bbab991bc8b74677d94d21a84"/></dir></dir></dir></dir></target><target name="magedesign"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="layout"><file name="erply.xml" hash="7256efaf3a3527494405d242b76616c8"/></dir><dir name="template"><dir name="erply"><file name="import.phtml" hash="c684878f875f04ed29006a08a8d917b1"/><dir><dir name="sync"><file name="edit.phtml" hash="86e27bc2b1401d03be42cff5004d40b0"/></dir><dir name="system"><dir name="config"><dir name="field"><file name="attributes.phtml" hash="1998e7cd698168176cabfabae7cedc41"/></dir></dir></dir></dir></dir></dir></dir></dir></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.2.0</min><max>6.0.0</max></php></required></dependencies>
+</package>

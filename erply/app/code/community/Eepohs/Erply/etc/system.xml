@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * NB! This is a BETA release of Erply Connector.
+ *
+ * Use with caution and at your own risk.
+ *
+ * The author does not take any responsibility for any loss or damage to business
+ * or customers or anything at all. These terms may change without further notice.
+ *
+ * License terms are subject to change. License is all-restrictive until
+ * said otherwise.
+ *
+ * @author Eepohs Ltd
+ */
+-->
+<config>
+    <sections>
+        <eepohs_erply translate="label">
+            <label>ERPLY</label>
+            <tab>service</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>101</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label">
+                    <frontend_type>text</frontend_type>
+                    <label>General settings</label>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <log_enabled translate="label">                                                        
+                            <label>Logging enabled:</label>                                                     
+                            <frontend_type>select</frontend_type>                                                        
+                            <sort_order>1</sort_order>                                                        
+                            <show_in_default>1</show_in_default>                                                        
+                            <show_in_website>0</show_in_website>                                                        
+                            <show_in_store>0</show_in_store>                                                        
+                            <source_model>adminhtml/system_config_source_yesno</source_model>                                                    
+                        </log_enabled>
+                    </fields>
+                </general>
+                <account translate="label">
+                    <frontend_type>text</frontend_type>
+                    <label>Account settings</label>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label">                                                        
+                            <label>Erply Connection Allowed:</label>                                                        
+                            <comment>Define if erply connection is allowed for this store.</comment>                                                        
+                            <frontend_type>select</frontend_type>                                                        
+                            <sort_order>1</sort_order>                                                        
+                            <show_in_default>1</show_in_default>                                                        
+                            <show_in_website>1</show_in_website>                                                        
+                            <show_in_store>1</show_in_store>                                                        
+                            <source_model>adminhtml/system_config_source_yesno</source_model>                                                    
+                        </enabled>
+                        <disable_order translate="label">                                                        
+                            <label>Disable order sending</label>                                                        
+                            <comment>Yes = Order sending disabled;No(default) = Order sending enabled.</comment>                                                        
+                            <frontend_type>select</frontend_type>                                                        
+                            <sort_order>1</sort_order>                                                        
+                            <show_in_default>1</show_in_default>                                                        
+                            <show_in_website>1</show_in_website>                                                        
+                            <show_in_store>1</show_in_store>                                                        
+                            <source_model>adminhtml/system_config_source_yesno</source_model>                                                    
+                        </disable_order>
+                        <is_main translate="label">                                                        
+                            <label>This is main account</label>                                                        
+                            <frontend_type>select</frontend_type>                                                        
+                            <sort_order>1</sort_order>                                                        
+                            <show_in_default>1</show_in_default>                                                        
+                            <show_in_website>1</show_in_website>                                                        
+                            <show_in_store>1</show_in_store>                                                        
+                            <source_model>adminhtml/system_config_source_yesno</source_model>                                                    
+                        </is_main>
+                        <code translate="label">
+                            <frontend_type>text</frontend_type>
+                            <label>Client Code</label>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </code>
+                        <username translate="label">
+                            <frontend_type>text</frontend_type>
+                            <label>Username</label>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </username>
+                        <password translate="label">
+                            <frontend_type>password</frontend_type>
+                            <label>Password</label>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </password>
+                    </fields>
+                </account>
+                <customer translate="label">
+                    <frontend_type>text</frontend_type>
+                    <label>Customer settings</label>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <billing_address translate="label">
+                            <frontend_type>text</frontend_type>
+                            <label>Billing address ID</label>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </billing_address>
+                        <shipping_address translate="label">
+                            <frontend_type>text</frontend_type>
+                            <label>Shipping address ID</label>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </shipping_address>
+                    </fields>
+                </customer>
+                <product translate="label">
+                    <frontend_type>text</frontend_type>
+                    <label>Product settings</label>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <attribute_set translate="label">
+                            <frontend_type>select</frontend_type>
+                            <source_model>Erply/System_Backend_Config_AttributeSet</source_model>
+                            <label>Attribute Set</label>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Additional attributes to import from Erply API.</comment>
+                        </attribute_set>
+                        <attributes translate="label">
+                            <label>Attributes</label>
+                            <frontend_model>Erply/system_backend_config_attributes</frontend_model>
+                            <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Additional attributes to import from Erply API.</comment>
+                        </attributes>
+                        <pricelist translate="label">
+                            <frontend_type>text</frontend_type>
+                            <label>Pricelist ID</label>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </pricelist>
+                        <warehouse translate="label">
+                            <frontend_type>text</frontend_type>
+                            <label>Warehouse ID</label>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </warehouse>
+                    </fields>
+                </product>
+                <update_schedule translate="label">
+                    <frontend_type>text</frontend_type>
+                    <label>Update Schedule</label>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <product_update_schedule>
+                            <label>Product Update Schedule</label>
+                            <sort_order>92</sort_order>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Cron Expression for Product Update Check</comment>
+                        </product_update_schedule>
+                        <category_update_schedule>
+                            <label>Category Update Schedule</label>
+                            <sort_order>92</sort_order>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Cron Expression for Category Update Check</comment>
+                        </category_update_schedule>
+                        <inventory_update_schedule>
+                            <label>Inventory Update Schedule</label>
+                            <sort_order>93</sort_order>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Cron Expression for Inventory Update Check</comment>
+                        </inventory_update_schedule>
+                        <price_update_schedule>
+                            <label>Price Update Schedule</label>
+                            <sort_order>94</sort_order>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Cron Expression for Price Update Check</comment>
+                        </price_update_schedule>
+                        <only_main translate="label">                                                        
+                            <label>Sync only Main account products</label>                                                        
+                            <frontend_type>select</frontend_type>                                                        
+                            <sort_order>1</sort_order>                                                        
+                            <show_in_default>1</show_in_default>                                                        
+                            <show_in_website>0</show_in_website>                                                        
+                            <show_in_store>0</show_in_store>                                                        
+                            <source_model>adminhtml/system_config_source_yesno</source_model>                                                    
+                        </only_main>
+                    </fields>
+                </update_schedule>
+                <queue translate="label">
+                    <frontend_type>text</frontend_type>
+                    <label>Queue settings</label>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <records_per_run>
+                            <frontend_type>text</frontend_type>
+                            <label>Records Per Run</label>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </records_per_run>
+                        <loops_per_run>
+                            <frontend_type>text</frontend_type>
+                            <label>Loops Per Run</label>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </loops_per_run>
+                        <loops_per_run>
+                            <frontend_type>text</frontend_type>
+                            <label>Loops Per Run</label>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </loops_per_run>
+                        <run_every>
+                            <frontend_type>text</frontend_type>
+                            <label>Run Every</label>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Run in every X minutes [default is 5]</comment>
+                        </run_every>
+                    </fields>
+                </queue>
+            </groups>
+        </eepohs_erply>
+    </sections>
+</config>

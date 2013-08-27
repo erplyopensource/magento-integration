@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Eepohs_Erply>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Eepohs_Erply>
+    </modules>
+</config>

@@ -1,0 +1,108 @@
+<?php
+/*
+ * ErplyMagentoConnector - Magento module for products synchronisation between Erply (http://www.erply.com) and Magento
+ *
+ * Copyright (C) 2011  Erply
+ *
+ * This file is part of ErplyMagentoConnector
+ *
+ * ErplyMagentoConnector is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/gpl-3.0.html.
+ *
+ * @category    Erply
+ * @package     Erply_Connector
+ */
+?>
+<div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td><h3><?php echo Mage::helper('adminhtml')->__($this->getTitle()) ?></h3></td>
+			<td class="form-buttons"><?php echo $this->getSaveButtonHtml() ?></td>
+         </tr>
+    </table>
+</div>
+<form action="<?php echo $this->getSaveUrl() ?>" method="post" id="erply_sync_form" enctype="multipart/form-data">
+    <?php echo $this->getBlockHtml('formkey')?>
+    <script type="text/javascript">
+    function buttonAction(button){
+        $('sync_action').value = button.id;
+        syncForm.submit();
+    }
+    </script>
+    <?php if($this->requiredDataExists()): ?>
+	<input type="hidden" id="sync_action" name="sync_action" value="" />
+    <?php echo $this->getChildHtml('form') ?>
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Erply-Magento synchronization') ?></h4>
+        </div>
+        <fieldset id="catalog">
+            <table cellspacing="0" class="form-list">
+                <tbody>
+                    <?php foreach ($this->getButtons('e2m') as $_item): ?>
+                    <tr>
+                        <td class="label"><label><?php echo $_item['label'] ?></label></td>
+                        <td class="value">
+                            <?php foreach ($_item['buttons'] as $_button): ?>
+                                <?php $clickAction = 'buttonAction(this)'; ?>
+                                <?php if (isset($_button['warning']) && $_button['warning']): ?>
+                                    <?php $clickAction = "if (confirm('".addslashes($_button['warning'])."')) {{$clickAction}}"; ?>
+                                <?php endif; ?>
+                                <button <?php if (!isset($_button['disabled']) || !$_button['disabled']):?>onclick="<?php echo $clickAction; ?>"<?php endif; ?> id="<?php echo $_button['name'] ?>" type="button" class="scalable <?php if (isset($_button['disabled']) && $_button['disabled']):?>disabled<?php endif; ?>" style=""><span><?php echo $_button['action'] ?></span></button>
+                                <?php if (isset($_button['comment'])): ?> <br /> <small><?php echo $_button['comment']; ?></small> <?php endif; ?>
+                            <?php endforeach; ?>
+                        </td>
+                        <td><small>&nbsp;</small></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+<?php /*
+	<div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Magento-Erply synchronization ') ?></h4>
+        </div>
+        <fieldset id="catalog">
+            <table cellspacing="0" class="form-list">
+                <tbody>
+                    <?php foreach ($this->getButtons('m2e') as $_item): ?>
+                    <tr>
+                        <td class="label"><label><?php echo $_item['label'] ?></label></td>
+                        <td class="value">
+                            <?php foreach ($_item['buttons'] as $_button): ?>
+                                <?php $clickAction = 'buttonAction(this)'; ?>
+                                <?php if (isset($_button['warning']) && $_button['warning']): ?>
+                                    <?php $clickAction = "if (confirm('".addslashes($_button['warning'])."')) {{$clickAction}}"; ?>
+                                <?php endif; ?>
+                                <button <?php if (!isset($_button['disabled']) || !$_button['disabled']):?>onclick="<?php echo $clickAction; ?>"<?php endif; ?> id="<?php echo $_button['name'] ?>" type="button" class="scalable <?php if (isset($_button['disabled']) && $_button['disabled']):?>disabled<?php endif; ?>" style=""><span><?php echo $_button['action'] ?></span></button>
+                                <?php if (isset($_button['comment'])): ?> <br /> <small><?php echo $_button['comment']; ?></small> <?php endif; ?>
+                            <?php endforeach; ?>
+                        </td>
+                        <td><small>&nbsp;</small></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+*/ ?>
+	<?php else:
+			echo 'Please fill all required data under System->Configuration->Erply.';
+		endif;
+	?>
+</form>
+<script type="text/javascript">
+    var syncForm = new varienForm('erply_sync_form');
+</script>

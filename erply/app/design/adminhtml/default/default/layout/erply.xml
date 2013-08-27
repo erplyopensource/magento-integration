@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout>
+    <connector_sync>
+        <reference name="content">
+            <block type="connector/sync" name="sync"></block>
+        </reference>
+    </connector_sync>
+</layout>
