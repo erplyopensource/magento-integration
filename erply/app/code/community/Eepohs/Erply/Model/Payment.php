@@ -12,20 +12,23 @@
  *
  * @author Eepohs Ltd
  */
+
 /**
  * Created by Rauno Väli
  * Date: 27.03.12
  * Time: 10:25
  */
-class Eepohs_Erply_Model_Payment extends Mage_Core_Model_Abstract
+class Eepohs_Erply_Model_Payment extends Eepohs_Erply_Model_Erply
 {
 
-    private $_storeId;
     protected static $_defaultInvoiceState = 'PENDING';
+
     protected static $_invoiceStatesAry = array(
         'PENDING' => 'PENDING',
         'PROCESSING' => 'READY'
     );
+
+    private $_storeId;
 
     public function _construct()
     {
@@ -35,21 +38,28 @@ class Eepohs_Erply_Model_Payment extends Mage_Core_Model_Abstract
     public function preparePayment($data, $storeId)
     {
 
+        /** @var Eepohs_Erply_Helper_Data $helper */
+        $helper = Mage::helper('Erply');
+
         $this->_storeId = $storeId;
 
-        $order = Mage::getModel('sales/order')->loadByIncrementId($data["invoiceNo"]);
+        $order = Mage::getModel('sales/order')
+            ->loadByIncrementId($data["invoiceNo"]);
 
-        if(!$order->getIncrementId()) return false;
+        if (!$order->getIncrementId())
+            return false;
 
         $payment = $order->getPayment();
 
-        if(!$payment) return false;
+        if (!$payment)
+            return false;
 
         $billing = $order->getBillingAddress();
 
-        if(!$billing) return false;
+        if (!$billing)
+            return false;
 
-        Mage::helper('Erply')->log("Starting to prepare Payment");
+        $helper->log("Starting to prepare Payment");
 
         $this->_data = array();
         $erpAttributes = array();
@@ -60,18 +70,16 @@ class Eepohs_Erply_Model_Payment extends Mage_Core_Model_Abstract
         $this->_data["cardType"] = "ONLINE";
         $this->_data["sum"] = $order->getGrandTotal();
         $this->_data["currencyCode"] = "USD";
-        $this->_data["cardHolder"] = $billing->getFirstname()." ".$billing->getLastname();
+        $this->_data["cardHolder"] = $billing->getFirstname() . " " . $billing->getLastname();
 
         return $this->_data;
     }
 
     protected function getVatRates()
     {
-        $erply = Mage::getModel('Erply/Erply');
-        $erply->verifyUser($this->_storeId);
-        $vatRates = $erply->sendRequest('getVatRates');
-        $vatRates = json_decode($vatRates, true);
-        if ( $vatRates["status"]["responseStatus"] == "ok" ) {
+        $vatRates = $this->makeRequest('getVatRates');
+
+        if ($vatRates["status"]["responseStatus"] == "ok") {
             return $vatRates["records"];
         } else {
             return false;
@@ -90,16 +98,16 @@ class Eepohs_Erply_Model_Payment extends Mage_Core_Model_Abstract
     protected function toKeyValueArray($array, $key, $valueArr)
     {
         $newarray = array();
-        foreach ( $array as $item ) {
-            foreach ( $valueArr as $value ) {
-                if ( count($valueArr) == 1 ) {
+        foreach ($array as $item) {
+            foreach ($valueArr as $value) {
+                if (count($valueArr) == 1) {
                     $newarray[$item[$key]] = $item[$value];
                 } else {
                     $newarray[$item[$key]][$value] = $item[$value];
                 }
             }
         }
+
         return $newarray;
     }
-
 }

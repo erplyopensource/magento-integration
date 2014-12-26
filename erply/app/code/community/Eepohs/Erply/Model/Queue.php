@@ -12,28 +12,21 @@
  *
  * @author Eepohs Ltd
  */
+
 /**
  * Created by Rauno Väli
  * Date: 27.03.12
  * Time: 9:45
  */
-class Eepohs_Erply_Model_Queue extends Mage_Core_Model_Abstract
+class Eepohs_Erply_Model_Queue extends Eepohs_Erply_Model_Erply
 {
+
     private $_storeId = 0;
 
     public function _construct()
     {
         parent::_construct();
         $this->_init('Erply/queue');
-    }
-
-    public function loadActive($jobCode)
-    {
-        $collection = $this->getCollection()->addFieldToFilter('job_code', array('eq' => $jobCode))->addFieldToFilter('status', array('eq' => 1));
-        if ($this->_storeId > 0) {
-            $collection->addFieldToFilter('store_id', array('eq' => $this->_storeId));
-        }
-        return $collection;
     }
 
     public function addQueue($data, $cron = true)
@@ -59,8 +52,9 @@ class Eepohs_Erply_Model_Queue extends Mage_Core_Model_Abstract
             }
             $queue->setChangedSince($params["changedSince"]);
         }
-        $data["totalRecords"] = Mage::getModel('Erply/Import')->getTotalRecords($data["storeId"], $data["type"], $params);
-        if($data["totalRecords"] == 0) {
+        $data["totalRecords"] = Mage::getModel('Erply/Import')
+            ->getTotalRecords($data["storeId"], $data["type"], $params);
+        if ($data["totalRecords"] == 0) {
             return false;
         }
         $data["recordsPerRun"] = Mage::getStoreConfig('eepohs_erply/queue/records_per_run', $data["storeId"]);
@@ -68,14 +62,13 @@ class Eepohs_Erply_Model_Queue extends Mage_Core_Model_Abstract
         if ($data["type"] == 'image_import') {
             $runEvery = Mage::getStoreConfig('eepohs_erply/queue/run_every', $data["storeId"]);
             $data["recordsPerRun"] = floor(450 / (60 / $runEvery));
-        } elseif( $data["type"] == 'price_update') {
-            $data["recordsPerRun"] = $data["recordsPerRun"]*5;
-        } elseif( $data["type"] == 'inventory_update') {
-            $data["recordsPerRun"] = $data["recordsPerRun"]*5;
+        } elseif ($data["type"] == 'price_update') {
+            $data["recordsPerRun"] = $data["recordsPerRun"] * 5;
+        } elseif ($data["type"] == 'inventory_update') {
+            $data["recordsPerRun"] = $data["recordsPerRun"] * 5;
         }
 
         $data["loopsPerRun"] = Mage::getStoreConfig('eepohs_erply/queue/loops_per_run', $data["storeId"]);
-
 
         $queue->setJobCode('erply_' . $data["type"]);
         $queue->setStoreId($data["storeId"]);
@@ -90,25 +83,24 @@ class Eepohs_Erply_Model_Queue extends Mage_Core_Model_Abstract
         $queue->save();
 
         if ($cron) {
-            Mage::getModel('Erply/Cron')->addCronJob('erply_' . $data["type"], $data["scheduleDateTime"]);
+            Mage::getModel('Erply/Cron')
+                ->addCronJob('erply_' . $data["type"], $data["scheduleDateTime"]);
             // $this->_redirectSuccess("Cron Job added!");
         }
-        return true;
 
+        return true;
     }
 
-    protected function closeOpenQueues($jobCode)
+    public function loadActive($jobCode)
     {
         $collection = $this->getCollection()
             ->addFieldToFilter('job_code', array('eq' => $jobCode))
-            ->addFieldToFilter('status', array('eq' => 1))
-            ->addFieldToFilter('store_id', array('eq' => $this->_storeId));
-        foreach ($collection as $queue) {
-            $obj = new self();
-            $obj->load($queue->getId());
-            $obj->setStatus(0);
-            $obj->save();
+            ->addFieldToFilter('status', array('eq' => 1));
+        if ($this->_storeId > 0) {
+            $collection->addFieldToFilter('store_id', array('eq' => $this->_storeId));
         }
+
+        return $collection;
     }
 
     public function deleteQueueByCode($jobCode)
@@ -124,10 +116,24 @@ class Eepohs_Erply_Model_Queue extends Mage_Core_Model_Abstract
             ->addFieldToFilter('status', Mage_Cron_Model_Schedule::STATUS_PENDING)
             ->addFieldToFilter('job_code', $jobCode)
             ->load();
-        if(count($pending) > 0) {
-            foreach($pending as $job) {
+        if (count($pending) > 0) {
+            foreach ($pending as $job) {
                 $job->delete();
             }
+        }
+    }
+
+    protected function closeOpenQueues($jobCode)
+    {
+        $collection = $this->getCollection()
+            ->addFieldToFilter('job_code', array('eq' => $jobCode))
+            ->addFieldToFilter('status', array('eq' => 1))
+            ->addFieldToFilter('store_id', array('eq' => $this->_storeId));
+        foreach ($collection as $queue) {
+            $obj = new self();
+            $obj->load($queue->getId());
+            $obj->setStatus(0);
+            $obj->save();
         }
     }
 }
