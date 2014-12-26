@@ -12,12 +12,13 @@
  *
  * @author Eepohs Ltd
  */
+
 /**
  * Created by Rauno Väli
  * Date: 27.03.12
  * Time: 9:48
  */
-class Eepohs_Erply_Model_Mysql4_Queue_Collection  extends Mage_Core_Model_Mysql4_Collection_Abstract
+class Eepohs_Erply_Model_Mysql4_Queue_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
 {
     public function _construct()
     {

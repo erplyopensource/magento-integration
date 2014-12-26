@@ -1,4 +1,5 @@
 <?php
+
 /**
  * NB! This is a BETA release of Erply Connector.
  *
@@ -14,9 +15,30 @@
  */
 class Eepohs_Erply_Helper_Data extends Mage_Core_Helper_Data
 {
-    public function log($message) {
-        if(Mage::getStoreConfig('eepohs_erply/general/log_enabled')) {
-            Mage::log($message,null, 'erply_logging.log');
+    public function log($message)
+    {
+        if (Mage::getStoreConfig('eepohs_erply/general/log_enabled')) {
+            Mage::log($message, null, 'erply_logging_' . (date('Y-m-d')) . '.log');
         }
+    }
+
+    public function getErplySession()
+    {
+        return Mage::getSingleton('core/session')->getErplySession();
+    }
+
+    public function setErplySession($data = null)
+    {
+        Mage::getSingleton('core/session')->setErplySession($data);
+
+        return $this;
+    }
+
+    public function unsetErplySession()
+    {
+        Mage::getSingleton('core/session')->unsErpySession();
+        Mage::getSingleton('core/session')->setErpySession(null);
+
+        return $this;
     }
 }

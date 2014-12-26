@@ -1,4 +1,5 @@
 <?php
+
 /**
  * NB! This is a BETA release of Erply Connector.
  *
@@ -23,35 +24,34 @@ class Eepohs_Erply_Block_SidebarBlock extends Mage_Adminhtml_Block_Widget_Tabs
 
     protected function _beforeToHtml()
     {
-//        $this->addTab('erply_products', array(
-//            'label' => Mage::helper('Erply')->__('Products')
-//            , 'title' => Mage::helper('Erply')->__('Products')
-//            , 'content' => $this
-//		->getLayout()
-//		->createBlock('Erply/Products')
-//		->toHtml()
-//            , 'active' => TRUE
-//        ));
-//
-//        $this->addTab('erply_orders', array(
-//            'label' => Mage::helper('Erply')->__('Orders')
-//            , 'title' => Mage::helper('Erply')->__('Orders')
-//            , 'content' => 'This is where orders will show up later on'
-//            , 'active' => TRUE
-//        ));
+        //        $this->addTab('erply_products', array(
+        //            'label' => Mage::helper('Erply')->__('Products')
+        //            , 'title' => Mage::helper('Erply')->__('Products')
+        //            , 'content' => $this
+        //		->getLayout()
+        //		->createBlock('Erply/Products')
+        //		->toHtml()
+        //            , 'active' => TRUE
+        //        ));
+        //
+        //        $this->addTab('erply_orders', array(
+        //            'label' => Mage::helper('Erply')->__('Orders')
+        //            , 'title' => Mage::helper('Erply')->__('Orders')
+        //            , 'content' => 'This is where orders will show up later on'
+        //            , 'active' => TRUE
+        //        ));
         $this->addTab('erply_import', array(
             'label' => Mage::helper('Erply')->__('Import')
-            , 'title' => Mage::helper('Erply')->__('Import')
-            , 'content' => $this
+        , 'title' => Mage::helper('Erply')->__('Import')
+        , 'content' => $this
                 ->getLayout()
-                ->createBlock('Erply/Import','
+                ->createBlock('Erply/Import', '
                 eepohs_erply_import',
-                array('template' => 'erply/import.phtml'))
+                    array('template' => 'erply/import.phtml'))
                 ->toHtml(),
-            'active' => TRUE
+            'active' => true
         ));
 
         parent::_beforeToHtml();
     }
-
 }

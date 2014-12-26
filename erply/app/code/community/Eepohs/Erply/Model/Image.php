@@ -12,6 +12,7 @@
  *
  * @author Eepohs Ltd
  */
+
 /**
  * Created by Rauno Väli
  * Date: 27.03.12
@@ -42,27 +43,29 @@ class Eepohs_Erply_Model_Image extends Mage_Core_Model_Abstract
                 ->loadByAttribute('sku', $sku);
 
             if (!$product) {
-                $product = Mage::getModel('catalog/product')->load($_product["productID"]);
+                $product = Mage::getModel('catalog/product')
+                    ->load($_product["productID"]);
                 if (!$product->getName()) {
                     continue;
                 } else {
-                    Mage::helper('Erply')->log("Editing old product: " . $_product["productID"]);
+                    Mage::helper('Erply')
+                        ->log("Editing old product: " . $_product["productID"]);
                 }
             }
-            if(!empty($_product["images"])) {
+            if (!empty($_product["images"])) {
                 $pos = 1;
-                foreach($_product["images"] as $image) {
+                foreach ($_product["images"] as $image) {
                     $url = $image["largeURL"];
-                    $image_type = substr(strrchr($url,"."),1);
-//                    $filename = md5($url.$sku).".".$image_type;
+                    $image_type = substr(strrchr($url, "."), 1);
+                    //                    $filename = md5($url.$sku).".".$image_type;
 
-//                    if(!is_dir(Mage::getBaseDir('media').DS.'erply_import')) {
-//                        mkdir(Mage::getBaseDir('media').DS.'erply_import');
-//                    }
+                    //                    if(!is_dir(Mage::getBaseDir('media').DS.'erply_import')) {
+                    //                        mkdir(Mage::getBaseDir('media').DS.'erply_import');
+                    //                    }
                     //$filepath = Mage::getBaseDir('media').DS.'erply_import'.DS.$filename;
                     //file_put_contents($filepath, file_get_contents(trim($url)));
-//                    $mediaAttribute = array('thumbnail', 'small_image', 'image');
-//
+                    //                    $mediaAttribute = array('thumbnail', 'small_image', 'image');
+                    //
                     $mimeType = getimagesize($url);
                     $imageData = array(
                         'file' => array(
@@ -74,16 +77,16 @@ class Eepohs_Erply_Model_Image extends Mage_Core_Model_Abstract
                         'position' => $pos,
                         'exclude' => 0
                     );
-                    if($pos == 1) {
+                    if ($pos == 1) {
                         $imageData['types'] = array('image', 'small_image', 'thumbnail');
                     }
 
-//                    $product->addImageToMediaGallery($filepath, $mediaAttribute, false, false);
-                    Mage::getModel('catalog/product_attribute_media_api')->create($_product["productID"], $imageData);
+                    //                    $product->addImageToMediaGallery($filepath, $mediaAttribute, false, false);
+                    Mage::getModel('catalog/product_attribute_media_api')
+                        ->create($_product["productID"], $imageData);
                     $pos++;
                 }
             }
-
 
             $product->save();
         }

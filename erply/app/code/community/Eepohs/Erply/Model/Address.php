@@ -1,4 +1,5 @@
 <?php
+
 /**
  * NB! This is a BETA release of Erply Connector.
  *
@@ -14,61 +15,70 @@
  */
 class Eepohs_Erply_Model_Address extends Eepohs_Erply_Model_Erply
 {
-	private $attrName;
-	private $attrType;
-	private $erpTypeID;
+
+    private $attrName;
+
+    private $attrType;
+
+    private $erpTypeID;
 
     public function _construct()
     {
-//		$this->attrName = 'magentoAddressId';
-//		$this->attrType = 'int';
-//		$this->erpTypeID = 3;// registered address
-//        parent::_construct();
+        //		$this->attrName = 'magentoAddressId';
+        //		$this->attrType = 'int';
+        //		$this->erpTypeID = 3;// registered address
     }
 
-    protected function getExistingAddress($customerId, $typeId, $storeId) {
+    public function saveCustomerAddress($customerId, $typeId, $data)
+    {
+
+        /** @var Eepohs_Erply_Helper_Data $helper */
+        $helper = Mage::helper('Erply');
 
         $params = array(
-            'ownerID'   =>  $customerId,
-            'typeID'    =>  $typeId
+            'ownerID' => $customerId,
+            'typeID' => $typeId,
+            'street' => $data["street"],
+            'city' => $data["city"],
+            'postalCode' => $data["postcode"],
+            'state' => $data["region"],
+            'country' => $data["country_id"]
+
         );
-        $reponse = $this->sendRequest('getAddresses', $params);
-        $reponse = json_decode($reponse, true);
-        if(isset($reponse["records"]) && count($reponse["records"]) > 0) {
-            return $reponse["records"][0]["addressID"];
+
+        if ($addressId = $this->getExistingAddress($customerId, $typeId)) {
+            $params["addressID"] = $addressId;
+        }
+        $helper->log("Magento - Sending address data to Erply: " . print_r($params, true));
+
+        $response = $this->makeRequest('saveAddress', $params);
+        $helper->log("Saving customer address:" . var_export($params, true));
+        if (isset($response["records"]) && count($response["records"]) > 0) {
+            return $response["records"][0]["addressID"];
         } else {
-            Mage::helper('Erply')->log("Erply - Address wasn't found:".print_r($reponse, true));
+            $helper->log("Coun't save address for customer:" . print_r($response, true));
+
             return false;
         }
     }
 
-    public function saveCustomerAddress($customerId, $typeId, $data, $storeId) {
+    protected function getExistingAddress($customerId, $typeId)
+    {
 
-        $this->verifyUser($storeId);
+        /** @var Eepohs_Erply_Helper_Data $helper */
+        $helper = Mage::helper('Erply');
 
         $params = array(
-            'ownerID'   =>  $customerId,
-            'typeID'    =>  $typeId,
-            'street'    =>  $data["street"],
-            'city'      =>  $data["city"],
-            'postalCode'  =>  $data["postcode"],
-            'state'     =>  $data["region"],
-            'country'   =>  $data["country_id"]
-
+            'ownerID' => $customerId,
+            'typeID' => $typeId
         );
+        $response = $this->makeRequest('getAddresses', $params);
 
-        if($addressId = $this->getExistingAddress($customerId, $typeId, $storeId)) {
-            $params["addressID"] = $addressId;
-        }
-        Mage::helper('Erply')->log("Magento - Sending address data to Erply: ".print_r($params, true));
-
-        $reponse = $this->sendRequest('saveAddress', $params);
-        $reponse = json_decode($reponse, true);
-        Mage::helper('Erply')->log("Saving customer address:". var_export($params, true));
-        if(isset($reponse["records"]) && count($reponse["records"]) > 0) {
-            return $reponse["records"][0]["addressID"];
+        if (isset($response["records"]) && count($response["records"]) > 0) {
+            return $response["records"][0]["addressID"];
         } else {
-            Mage::helper('Erply')->log("Coun't save address for customer:".print_r($reponse,true));
+            $helper->log("Erply - Address wasn't found:" . print_r($response, true));
+
             return false;
         }
     }

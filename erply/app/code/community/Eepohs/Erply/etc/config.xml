@@ -120,7 +120,8 @@
                                 <config>
                                     <children>
                                         <eepohs_erply>
-                                            <title>Erply Configuration Section</title>
+                                            <title>Erply Configuration Section
+                                            </title>
                                         </eepohs_erply>
                                     </children>
                                 </config>
@@ -169,8 +170,12 @@
                 </run>
             </erply_image_import>
             <erply_check_order_status>
-                <schedule><cron_expr>*/15 * * * *</cron_expr></schedule>
-                <run><model>Erply/cron::checkPendingOrders</model></run>
+                <schedule>
+                    <cron_expr>*/15 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>Erply/cron::checkPendingOrders</model>
+                </run>
             </erply_check_order_status>
         </jobs>
     </crontab>

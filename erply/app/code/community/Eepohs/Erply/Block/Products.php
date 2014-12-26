@@ -1,4 +1,5 @@
 <?php
+
 /**
  * NB! This is a BETA release of Erply Connector.
  *
@@ -17,18 +18,15 @@ class Eepohs_Erply_Block_Products extends Mage_Adminhtml_Block_Template
     protected function _toHtml()
     {
 
-	$erply = Mage::getModel('Erply/Erply');
+        $erply = Mage::getModel('Erply/Erply');
 
-//	$erply->setCode('43116');
-//	$erply->setUsername('tanelraja');
-//	$erply->setPassword('S732jf5');
-    $erply->verifyUser(1);
         $params = array("pageNo" => 1, "recordsOnPage" => 10);
-	$result = $erply->sendRequest('getProducts', $params);
+        $result = $erply->makeRequest('getProducts', $params);
 
-	$output = json_decode($result, true);
-	$return = print_r($output, true);
-	$out = print_r((Mage::getStoreConfig('eepohs_erply/product/attribute_set', 1)), true);
-	return $out."<br/>".$erply->getUrl() . "<pre>$return</pre>";
+        $output = $result;
+        $return = print_r($output, true);
+        $out = print_r((Mage::getStoreConfig('eepohs_erply/product/attribute_set', 1)), true);
+
+        return $out . "<br/>" . $erply->getUrl() . "<pre>$return</pre>";
     }
 }
